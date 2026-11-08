@@ -1,0 +1,12 @@
+[package]
+name = "sim"
+description = "Simulator for the 8Bit-CPU"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+isa = { path = "../isa" }
+asm = { path = "../asm" }
+
+[lints]
+workspace = true

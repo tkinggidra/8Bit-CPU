@@ -1,4 +1,2 @@
-asm/target/
+target/
 *.bin
-__pycache__/
-.venv/

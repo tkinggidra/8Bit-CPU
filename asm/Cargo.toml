@@ -1,6 +1,11 @@
 [package]
 name = "asm"
-version = "0.1.0"
-edition = "2024"
+description = "Assembler for the 8Bit-CPU"
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
+isa = { path = "../isa" }
+
+[lints]
+workspace = true

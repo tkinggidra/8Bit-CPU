@@ -1,0 +1,8 @@
+[package]
+name = "isa"
+description = "Instruction set of the 8Bit-CPU: names, opcodes and encoding"
+version.workspace = true
+edition.workspace = true
+
+[lints]
+workspace = true

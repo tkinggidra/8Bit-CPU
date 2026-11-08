@@ -1,0 +1,15 @@
+[package]
+name = "hw"
+description = "Tick-level model of the 8Bit-CPU hardware, and its control ROM generator"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+isa = { path = "../isa" }
+asm = { path = "../asm" }
+
+[dev-dependencies]
+sim = { path = "../sim" }
+
+[lints]
+workspace = true

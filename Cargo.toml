@@ -2,14 +2,17 @@
 #   isa  - the instruction set (names, opcodes, encoding). The single source of truth.
 #   asm  - the assembler: assembly text -> machine code
 #   sim  - the simulator: runs machine code (or .asm files directly)
+#   hw   - the hardware model: control lines, control ROM, tick-by-tick machine
 #
 # From this folder:
 #   cargo test                                        run every test
 #   cargo run -p asm -- examples/count.asm count.bin  assemble a program
 #   cargo run -p sim -- examples/primes.asm           assemble and run in one go
+#   cargo run -p hw -- run examples/count.asm --trace run it one clock tick at a time
+#   cargo run -p hw -- rom hardware/rom               write the control ROM images
 
 [workspace]
-members = ["isa", "asm", "sim"]
+members = ["isa", "asm", "sim", "hw"]
 resolver = "3"
 
 [workspace.package]

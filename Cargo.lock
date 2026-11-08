@@ -10,6 +10,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hw"
+version = "0.1.0"
+dependencies = [
+ "asm",
+ "isa",
+ "sim",
+]
+
+[[package]]
 name = "isa"
 version = "0.1.0"
 

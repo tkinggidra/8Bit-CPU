@@ -1,0 +1,73 @@
+8Bit-CPU control ROM
+====================
+
+Address: A7-A4 = opcode (IR0 bits 7-4), A3-A1 = step counter, A0 = zero flag
+Chip 0: D0-D7 = PC_OUT RAM_OUT IR1_OUT REG_OUT ALU_OUT IN_OUT PC_INC HLT
+Chip 1: D0-D7 = MAR_LD RAM_WE IR0_LD IR1_LD A_LD B_LD REG_LD OUT_LD
+Chip 2: D0-D7 = PC_LD Z_LD END ALU_OP0 ALU_OP1 ALU_OP2 REG_SEL0 REG_SEL1
+24 control lines in total.
+
+Fetch (every instruction, steps 0-3)
+  step 0: PC_OUT MAR_LD
+  step 1: RAM_OUT PC_INC IR0_LD
+  step 2: PC_OUT MAR_LD
+  step 3: RAM_OUT PC_INC IR1_LD
+
+nop (opcode 0x0)
+  step 4: END
+
+add (opcode 0x1)
+  step 4: REG_OUT A_LD REG_SEL=x
+  step 5: REG_OUT B_LD REG_SEL=y
+  step 6: ALU_OUT REG_LD END REG_SEL=c ALU=add
+
+sub (opcode 0x2)
+  step 4: REG_OUT A_LD REG_SEL=x
+  step 5: REG_OUT B_LD REG_SEL=y
+  step 6: ALU_OUT REG_LD END REG_SEL=c ALU=sub
+
+and (opcode 0x3)
+  step 4: REG_OUT A_LD REG_SEL=x
+  step 5: REG_OUT B_LD REG_SEL=y
+  step 6: ALU_OUT REG_LD END REG_SEL=c ALU=and
+
+or (opcode 0x4)
+  step 4: REG_OUT A_LD REG_SEL=x
+  step 5: REG_OUT B_LD REG_SEL=y
+  step 6: ALU_OUT REG_LD END REG_SEL=c ALU=or
+
+xor (opcode 0x5)
+  step 4: REG_OUT A_LD REG_SEL=x
+  step 5: REG_OUT B_LD REG_SEL=y
+  step 6: ALU_OUT REG_LD END REG_SEL=c ALU=xor
+
+ldi (opcode 0x6)
+  step 4: IR1_OUT REG_LD END REG_SEL=x
+
+ld (opcode 0x7)
+  step 4: IR1_OUT MAR_LD
+  step 5: RAM_OUT REG_LD END REG_SEL=x
+
+st (opcode 0x8)
+  step 4: IR1_OUT MAR_LD
+  step 5: REG_OUT RAM_WE END REG_SEL=x
+
+out (opcode 0x9)
+  step 4: REG_OUT OUT_LD END REG_SEL=x
+
+in (opcode 0xa)
+  step 4: IN_OUT REG_LD END REG_SEL=x
+
+jmp (opcode 0xb)
+  step 4: IR1_OUT PC_LD END
+
+jz (opcode 0xc)
+  step 4: REG_OUT Z_LD REG_SEL=x
+  step 5 (zero flag clear): END
+  step 5 (zero flag set):   IR1_OUT PC_LD END
+
+hlt (opcode 0xf)
+  step 4: HLT
+
+Unused opcodes (0xd, 0xe)
+  step 4: HLT
